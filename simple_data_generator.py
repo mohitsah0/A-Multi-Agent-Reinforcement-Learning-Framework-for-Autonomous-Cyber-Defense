@@ -2,15 +2,13 @@ import csv
 import random
 import json
 from datetime import datetime, timedelta
-
-# Set seed for reproducibility
 random.seed(42)
 
 def generate_performance_comparison_data():
-    """Generate the main performance comparison data from Table I"""
+  
     methods = ['Rule_Based', 'Single_Agent_PPO', 'Independent_Learning', 'Standard_MAPPO', 'TFP_Baseline', 'H_MAPPO_Ours']
     
-    # Base performance data from the paper
+   
     performance_data = {
         'Rule_Based': {'TDR': 78.3, 'FPR': 12.7, 'MTTD': 45.2, 'MTTR': 127.8, 'CSR': 72.1},
         'Single_Agent_PPO': {'TDR': 85.2, 'FPR': 8.4, 'MTTD': 23.7, 'MTTR': 89.3, 'CSR': 79.6},
@@ -24,7 +22,7 @@ def generate_performance_comparison_data():
     detailed_data = []
     for method in methods:
         base = performance_data[method]
-        for trial in range(100):  # 100 trials per method
+        for trial in range(100):  
             row = {
                 'Method': method,
                 'Trial': trial + 1,
@@ -39,11 +37,10 @@ def generate_performance_comparison_data():
     return detailed_data
 
 def generate_scenario_performance_data():
-    """Generate scenario-specific performance data from Figure 1"""
-    scenarios = ['APT', 'Insider_Threat', 'DDoS', 'Zero_Day', 'Multi_Vector']
+        scenarios = ['APT', 'Insider_Threat', 'DDoS', 'Zero_Day', 'Multi_Vector']
     methods = ['Rule_Based', 'Single_Agent_PPO', 'Independent_Learning', 'Standard_MAPPO', 'TFP_Baseline', 'H_MAPPO_Ours']
     
-    # Performance matrix from the paper
+  
     scenario_performance = {
         'Rule_Based': [81.4, 74.2, 85.6, 69.8, 76.3],
         'Single_Agent_PPO': [84.7, 79.1, 88.2, 73.5, 81.2],
@@ -57,7 +54,7 @@ def generate_scenario_performance_data():
     for i, scenario in enumerate(scenarios):
         for method in methods:
             base_performance = scenario_performance[method][i]
-            # Generate multiple samples with noise
+            
             for trial in range(50):
                 row = {
                     'Scenario': scenario,
@@ -72,7 +69,7 @@ def generate_scenario_performance_data():
     return scenario_data
 
 def generate_coordination_metrics():
-    """Generate coordination and scalability data from Table II"""
+   
     methods = ['Independent_Learning', 'Standard_MAPPO', 'TFP_Baseline', 'H_MAPPO_Ours']
     
     coordination_data = {
@@ -104,7 +101,7 @@ def generate_scalability_data():
     network_sizes = [100, 200, 500, 1000, 2000, 5000]
     methods = ['Single_Agent_PPO', 'Standard_MAPPO', 'H_MAPPO_Ours']
     
-    # Base computational times (in seconds)
+  
     base_times = {
         'Single_Agent_PPO': [2.3, 9.2, 58.4, 234.7, 941.2, 5847.3],
         'Standard_MAPPO': [3.1, 8.7, 42.1, 189.3, 756.8, 4523.2],
@@ -131,7 +128,7 @@ def generate_scalability_data():
     return scalability_data
 
 def generate_adversarial_robustness_data():
-    """Generate adversarial robustness data from Table IV"""
+    
     adaptation_levels = ['Static', 'Reactive', 'Predictive', 'Co_evolutionary']
     methods = ['Rule_Based', 'Standard_MAPPO', 'H_MAPPO_Ours']
     
@@ -161,7 +158,7 @@ def generate_adversarial_robustness_data():
     return adversarial_data
 
 def generate_compliance_data():
-    """Generate governance compliance data"""
+  
     methods = ['Standard_MAPPO', 'TFP_Baseline', 'H_MAPPO_Ours']
     compliance_categories = ['Policy_Compliance', 'Audit_Completeness', 'Human_Escalation_Rate', 'Response_Time_Compliance']
     
@@ -202,7 +199,7 @@ def save_to_csv(data, filename):
     print(f"Saved {len(data)} records to {filename}")
 
 def create_data_summary():
-    """Create a summary of all generated datasets"""
+   
     summary = {
         "data_generation_info": {
             "generation_date": datetime.now().isoformat(),
@@ -253,8 +250,7 @@ def main():
     print("Generating Cyber Defense Sample Data...")
     print("=" * 50)
     
-    # Generate all datasets
-    datasets = {
+       datasets = {
         'performance_comparison': generate_performance_comparison_data(),
         'scenario_performance': generate_scenario_performance_data(),
         'coordination_metrics': generate_coordination_metrics(),
@@ -263,7 +259,7 @@ def main():
         'compliance_data': generate_compliance_data()
     }
     
-    # Save datasets to CSV files
+   
     for name, data in datasets.items():
         filename = f'/home/sandbox/{name}.csv'
         save_to_csv(data, filename)
